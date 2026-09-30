@@ -10,4 +10,4 @@
 
 module load nextflow/25.10.4
 
-nextflow run main.nf -profile slurm --input_dir /home/miclark/MpyrAdapt/data/raw --report_name MpyrAdapt_QC -resume
+nextflow run main.nf -profile slurm --input_dir /home/miclark/kelpflow/test_data/raw --report_name MpyrAdapt_QC -resume

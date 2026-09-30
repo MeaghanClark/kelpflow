@@ -3,8 +3,6 @@ process MULTIQC {
 
     module 'multiqc/1.27'
 
-    publishDir "${params.outdir}/read_QC", mode: 'copy'
-
     input:
     path 'fastqc/*'
     val  report_name

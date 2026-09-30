@@ -3,3 +3,7 @@ work/
 .nextflow.log*
 results/
 run_logs/
+containers/*.sif
+test_data/
+*.mmd
+preview.nf

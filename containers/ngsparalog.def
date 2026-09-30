@@ -1,0 +1,34 @@
+# ngsparalog.def
+Bootstrap: docker
+From: continuumio/miniconda3:latest
+
+%post
+    apt-get update && apt-get install -y \
+        build-essential \
+        git \
+        gcc \
+        g++
+
+    # Build ngsParalog
+    cd /opt
+    git clone https://github.com/tplinderoth/ngsParalog
+    cd ngsParalog
+    make
+
+    # Build the dupHMM conda environment for the R-based HMM steps
+    conda create -n dupHMM -y -c bioconda -c conda-forge \
+        r-truncnorm r-docopt r-expm libgfortran-ng=7
+
+    # Install R packages not available via conda channels
+    conda run -n dupHMM Rscript -e "install.packages('codetools', repos='https://cloud.r-project.org')"
+
+    conda clean -a -y
+
+%environment
+    export PATH=/opt/ngsParalog:$PATH
+    export PATH=/opt/conda/envs/dupHMM/bin:$PATH
+
+%labels
+    Author your_name
+    Version v1.0
+    Source https://github.com/tplinderoth/ngsParalog

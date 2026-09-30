@@ -4,7 +4,6 @@ process FASTQC{
 
     module 'fastqc/0.12.1'
 
-    publishDir "${params.outdir}/read_QC", mode: 'copy'
 
     input:
     tuple val(meta), path(reads)
