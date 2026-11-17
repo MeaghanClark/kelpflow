@@ -1,4 +1,4 @@
-process PARSE_QUALIMAP_STATS {
+process PARSE_QUALIMAP {
     tag "$meta.id"
     label 'process_low'
 
@@ -17,7 +17,7 @@ process PARSE_QUALIMAP_STATS {
     mapped_reads=\$(grep "number of mapped reads" "\$results_file" | grep -oP '\\d[\\d,]*(?= \\()' | tr -d ',')
     pct_mapped=\$(grep "number of mapped reads" "\$results_file" | grep -oP '(?<=\\()[0-9.]+(?=%\\))')
     mean_coverage=\$(grep "mean coverageData" "\$results_file" | grep -oP '[0-9.]+(?=X)')
-    std_coverage=\$(grep "sd coverageData" "\$results_file" | grep -oP '[0-9.]+(?=X)')
+    std_coverage=\$(grep "std coverageData" "\$results_file" | grep -oP '[0-9.]+(?=X)')
     mean_mapq=\$(grep "mean mapping quality" "\$results_file" | grep -oP '[0-9.]+')
     error_rate=\$(grep "error rate" "\$results_file" | grep -oP '[0-9.]+')
     gc_pct=\$(grep "GC percentage" "\$results_file" | grep -oP '[0-9.]+(?=%)')

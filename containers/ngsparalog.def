@@ -15,12 +15,15 @@ From: continuumio/miniconda3:latest
     cd ngsParalog
     make
 
-    # Build the dupHMM conda environment for the R-based HMM steps
-    conda create -n dupHMM -y -c bioconda -c conda-forge \
-        r-truncnorm r-docopt r-expm libgfortran-ng=7
+    # Install samtools into the base environment
+    conda install -y -c bioconda -c conda-forge samtools=1.21
 
-    # Install R packages not available via conda channels
-    conda run -n dupHMM Rscript -e "install.packages('codetools', repos='https://cloud.r-project.org')"
+    # Build the dupHMM conda environment for the R-based HMM steps
+    conda config --set channel_priority strict
+    conda create -n dupHMM -y -c conda-forge \
+        r-base r-truncnorm r-docopt r-expm r-codetools
+
+    conda run -n dupHMM Rscript -e "install.packages('docopt', repos='https://cloud.r-project.org')"
 
     conda clean -a -y
 

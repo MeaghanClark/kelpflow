@@ -9,8 +9,8 @@ process ALIGN {
     tuple val(meta), path(forward), path(reverse), path(merged), val(ref_meta), path(ref_genome), path(index_files)
     
     output:
-    tuple val(meta), path("*minfilt.bam"), emit: bam_minfilt
-    tuple val(meta), path("*rmdup.bam"),   emit: bam_filt
+    tuple val(meta), path("*minfilt.bam"), path("*minfilt.bam.bai"), emit: bam_minfilt
+    tuple val(meta), path("*rmdup.bam"), path("*rmdup.bam.bai"), emit: bam_filt
 
     script:
     // Define data string used for read group information
