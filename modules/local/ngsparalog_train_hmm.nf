@@ -4,8 +4,8 @@ process TRAIN_HMM {
     container "${projectDir}/containers/ngsparalog.sif"
     beforeScript = '''
     module load singularity-ce/singularity-ce.4.1.4
-    export SINGULARITY_TMPDIR=/hb/scratch/miclark/singularity_tmp
-    export TMPDIR=/hb/scratch/miclark/singularity_tmp
+    export SINGULARITY_TMPDIR=${params.singularity_tmpdir}
+    export TMPDIR=${params.tmpdir}
     mkdir -p "$SINGULARITY_TMPDIR"
     '''
 

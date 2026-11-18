@@ -47,7 +47,7 @@ These are the programs required by the pipeline.
 - prune_graph (user install, see below*)
 - pcangsd (conda environment. Also exists as an elkhorn module)
 
-* ngsParalog and prune_graph require some additional steps from the user before the pipeline is able to run. 
+/* ngsParalog and prune_graph require some additional steps from the user before the pipeline is able to run. 
 
 ### ngsParalog installed as a singularity container
 Singularity containers need to be set up before running the pipeline, using the code below. Run the following commands from the kelpflow directory. 
@@ -64,7 +64,7 @@ Then, change the `TMPDIR` and `SINGULARITY_TMPDIR` parameters in nextflow.config
 
 ***TMPDIR and SINGULARITY_TMPDIR in ngsparalog_train_hmm.nf deeds to be modified to the user's preference. Meaghan should make this a parameter in nextflow.config! 
 
-### Prune_graph needs to be installed locally: 
+### prune_graph needs to be installed locally: 
 
     #### Local installation of prunegraph
     # https://github.com/fgvieira/prune_graph
@@ -77,30 +77,30 @@ Then, change the `TMPDIR` and `SINGULARITY_TMPDIR` parameters in nextflow.config
     After cloning the git repository, update the file path to your local install in nextflow.config
 
 ### HOW TO: TESTING
-nextflow run preview.nf # use preview.nf to view channels when testing 
+    nextflow run preview.nf # use preview.nf to view channels when testing 
 
 ### HOW TO: MAKING FLOWCHART
-module load nextflow/25.10.4
+    module load nextflow/25.10.4
 
-nextflow run main.nf -preview -with-dag flowchart.mmd # change extension for different file type, i.e., ".png" 
-nextflow run main.nf -preview -with-dag flowchart.png 
+    nextflow run main.nf -preview -with-dag flowchart.mmd # change extension for different file type, i.e., ".png" 
+    nextflow run main.nf -preview -with-dag flowchart.png 
 
     # edit using nf-metro-playground
 
 ### HOW TO: Creating new singularity containers
 
     # start interactive job: salloc --time=168:00:00 --mem=10Gb --ntasks=1 --cpus-per-task=1 --partition=windfall
+
+    module load singularity-ce/singularity-ce.4.1.4
+
+    singularity build --fakeroot containers/ngsparalog.sif containers/ngsparalog.def
+    singularilty build --sandbox containers/ngsparalog_sandbox containers/ngsparalog.sif
     
-module load singularity-ce/singularity-ce.4.1.4
-
-singularity build --fakeroot containers/ngsparalog.sif containers/ngsparalog.def
-singularilty build --sandbox containers/ngsparalog_sandbox containers/ngsparalog.sif
-
-#test
-singularity exec ngsparalog.sif ngsParalog
-singularity exec ngsparalog.sif bash -c "source activate dupHMM && Rscript -e 'library(truncnorm); library(docopt); library(expm); library(codetools)'"
+    #test
+    singularity exec ngsparalog.sif ngsParalog
+    singularity exec ngsparalog.sif bash -c "source activate dupHMM && Rscript -e 'library(truncnorm); library(docopt); library(expm); library(codetools)'"
 
 # NOTES AND FUTURE FEATURES
-add k-mer step to get genome profile as part of QC step? 
-add reference QC/evaluation step 
+* add k-mer step to get genome profile as part of QC step? 
+* add reference QC/evaluation step 
 

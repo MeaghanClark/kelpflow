@@ -2,7 +2,14 @@ process CALC_LR {
     tag "segment_${segment_id}"
     label 'process_medium'
     
-     module 'samtools/1.21'
+    container "${projectDir}/containers/ngsparalog.sif"
+    
+    beforeScript = '''
+    module load singularity-ce/singularity-ce.4.1.4
+    export SINGULARITY_TMPDIR=${params.singularity_tmpdir}
+    export TMPDIR=${params.tmpdir}
+    mkdir -p "$SINGULARITY_TMPDIR"
+    '''
 
     input:
     tuple val(segment_id), path(region_file), path(posfile)
