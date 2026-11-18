@@ -2,9 +2,7 @@ process CALC_LR {
     tag "segment_${segment_id}"
     label 'process_medium'
     
-    // NOTE: beforeScript/container are actually set via the withName selector in
-    // nextflow.config (config-level directives override these), so they're omitted here
-    // to avoid the two definitions silently diverging.
+     module 'samtools/1.21'
 
     input:
     tuple val(segment_id), path(region_file), path(posfile)

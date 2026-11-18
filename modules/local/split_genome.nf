@@ -1,8 +1,7 @@
 process SPLIT_GENOME {
     label 'process_low'
 
-    module 'miniconda3'
-    conda 'conda-forge::r-base'
+    module 'r/4.4.1'
 
     input:
     path fai 

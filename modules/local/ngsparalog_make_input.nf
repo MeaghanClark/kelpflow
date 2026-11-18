@@ -3,6 +3,7 @@ process MAKE_NGSPARALOG_INPUT {
     label 'process_medium'
 
     // module 'angsd/0.940:samtools/1.21'
+        // modules are loaded inside script block because angsd and samtools can't be loaded at the same time
 
     input:
     tuple val(segment_id), path(segment_file)

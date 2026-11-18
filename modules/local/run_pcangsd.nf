@@ -1,6 +1,8 @@
 process RUN_PCANGSD {
     label 'process_high'
+
     module 'miniconda3'
+    conda `bioconda::pcangsd=1.36.4`
 
     input:
     path(beagle)
@@ -12,10 +14,7 @@ process RUN_PCANGSD {
     script:
     """
     set -eo pipefail 
-    
-    eval "\$(conda shell.bash hook)"
-    conda activate pcangsd
-    
+        
     pcangsd \\
       --beagle ${beagle} \\
       --maf ${params.pca_maf} \\

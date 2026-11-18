@@ -1,9 +1,8 @@
 process DEPTH_HIST {
     label 'process_medium'
 
-    module 'miniconda3'
-    conda 'conda-forge::r-base'
-
+    module 'r/4.4.1'
+    
     input:
     path coverage_file
 
