@@ -28,7 +28,8 @@ This pipeline uses Elkhorn's module system, conda environments, local installs, 
 
 ### Required programs
 
-These are the programs required by the pipeline. 
+These are the programs required by the pipeline. Nextflow will load everything for you, including creating conda environments. I have included the module information below for future troubleshooting purposes. 
+ 
 - miniconda3 (elkhorn module, `module load miniconda3/3.13`)
 - nextflow (elkhorn module, `module load nextflow/25.10.4`)
 - R (elkhorn module, `module load r/4.4.1`)

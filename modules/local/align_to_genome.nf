@@ -110,5 +110,8 @@ process ALIGN {
         | samtools markdup -r -@ ${task.cpus} - ${meta.id}.rmdup.bam
 
     samtools index ${meta.id}.rmdup.bam
+
+    # clean up intermediate files
+    rm ${meta.id}.aln-pe.bam ${meta.id}.aln-se.bam ${meta.id}.aln-pe.clipped.bam ${meta.id}.minfilt-pe.bam ${meta.id}.minfilt-se.bam ${meta.id}.fixmate-pe.bam ${meta.id}.filt-se.bam
     """
 }
