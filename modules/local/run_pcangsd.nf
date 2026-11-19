@@ -2,7 +2,7 @@ process RUN_PCANGSD {
     label 'process_high'
 
     module 'miniconda3'
-    conda `bioconda::pcangsd=1.36.4`
+    conda 'bioconda::pcangsd=1.36.4'
 
     input:
     path(beagle)

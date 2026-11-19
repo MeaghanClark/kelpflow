@@ -26,6 +26,8 @@ sbatch run_nextflow.sh
 ## SET UP
 This pipeline uses Elkhorn's module system, conda environments, local installs, and singularity containers. Maybe someday in the future there will be a dedicated singularity container, but that day is not today.
 
+Prior to running the program, you should review the nextflow.config file and change filepaths to be reflective of your setup. 
+
 ### Required programs
 
 These are the programs required by the pipeline. Nextflow will load everything for you, including creating conda environments. I have included the module information below for future troubleshooting purposes. 
@@ -61,7 +63,7 @@ Singularity containers need to be set up before running the pipeline, using the 
         singularilty build --sandbox containers/ngsparalog_sandbox containers/ngsparalog.sif
         ```
 
-Then, change the `TMPDIR` and `SINGULARITY_TMPDIR` parameters in nextflow.config. 
+Then, change the `TMPDIR`, `SINGULARITY_TMPDIR`, and `singularity.cacheDir` in nextflow.config. 
 
 ***TMPDIR and SINGULARITY_TMPDIR in ngsparalog_train_hmm.nf deeds to be modified to the user's preference. Meaghan should make this a parameter in nextflow.config! 
 

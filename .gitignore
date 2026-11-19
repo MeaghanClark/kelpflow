@@ -7,3 +7,4 @@ containers/*.sif
 test_data/
 *.mmd
 preview.nf
+full_data/
