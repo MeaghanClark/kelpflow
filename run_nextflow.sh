@@ -10,4 +10,4 @@
 
 module load nextflow/25.10.4
 
-nextflow run main.nf -profile slurm --input_dir /home/miclark/kelpflow/test_data/raw -resume
+nextflow run main.nf -profile slurm --input_dir /home/miclark/kelpflow_fullrun/data/ -resume
