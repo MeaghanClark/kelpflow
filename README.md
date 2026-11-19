@@ -26,7 +26,7 @@ sbatch run_nextflow.sh
 ## SET UP
 This pipeline uses Elkhorn's module system, conda environments, local installs, and singularity containers. Maybe someday in the future there will be a dedicated singularity container, but that day is not today.
 
-Prior to running the program, you should review the nextflow.config file and change filepaths to be reflective of your setup. 
+Prior to running the program, you should review the nextflow.config file and change filepaths to be reflective of your setup. Currently, you will also need to manually edit read group information in align_to_genome.nf. 
 
 ### Required programs
 

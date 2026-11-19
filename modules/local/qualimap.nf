@@ -2,7 +2,7 @@ process QUALIMAP{
     tag "$meta.id"
     label 'process_medium'
 
-    module 'miniconda3'
+    module 'miniconda3/3.13'
     conda 'bioconda::qualimap'
 
     input:
