@@ -91,6 +91,13 @@ Then, change the `TMPDIR`, `SINGULARITY_TMPDIR`, and `singularity.cacheDir` in n
     # edit using nf-metro-playground
 
 ### HOW TO: Creating new singularity containers
+You have two options here. 
+
+The first (and easiest option) is to copy the singularity image from /hb/groups/mpinsky_lab/containers/kelpflow_containers.tar.gz to your kelpflow directory. Then extract the gzipped tarball using: `tar -xzvf kelpflow_containers.tar.gz`
+
+If you want to build the container yourself, following the instructions below: 
+
+First, you need to submit a help ticket to help@ucsc.edu and ask them to add you to /etc/subuid. Evidently this is only temporary. 
 
     # start interactive job: salloc --time=168:00:00 --mem=10Gb --ntasks=1 --cpus-per-task=1 --partition=windfall
 
@@ -99,11 +106,33 @@ Then, change the `TMPDIR`, `SINGULARITY_TMPDIR`, and `singularity.cacheDir` in n
     singularity build --fakeroot containers/ngsparalog.sif containers/ngsparalog.def
     singularilty build --sandbox containers/ngsparalog_sandbox containers/ngsparalog.sif
     
-    #test
+    # test container
+    exit # may need to leave interactive job for this to work
+    cd containers
     singularity exec ngsparalog.sif ngsParalog
     singularity exec ngsparalog.sif bash -c "source activate dupHMM && Rscript -e 'library(truncnorm); library(docopt); library(expm); library(codetools)'"
 
 # NOTES AND FUTURE FEATURES
 * add k-mer step to get genome profile as part of QC step? 
 * add reference QC/evaluation step 
+* prune by contig? look at albatross pipeline
+* Visualization of alignment summary file: 
 
+    ```
+    # something like: 
+    path <- "~/Downloads/kelpflow_fullrun_alignment_stats.tsv"
+    data <- read.csv(path, header = TRUE, sep = "\t")
+    
+    data$run <- sapply(strsplit(data$sample, "_"), `[`, 2)
+
+    boxplot(total_reads ~ run, data = data)
+    boxplot(mean_coverage ~ run, data = data)
+    boxplot(std_coverage ~ run, data = data)
+    boxplot(mean_mapq ~ run, data = data)
+    boxplot(error_rate ~ run, data = data)
+    boxplot(gc_pct ~ run, data = data)
+
+    plot(mean_coverage~total_reads, data = data, col = as.factor(run), pch = 19)
+    legend("topleft", legend = unique(as.factor(data$run)), pch = 19, col = unique(as.factor(data$run)))
+
+    ```
