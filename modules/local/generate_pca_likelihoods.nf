@@ -7,14 +7,15 @@ process GENERATE_PCA_LIKELIHOODS {
     path(bam_files)
     path(bai_files)
     path(sites)          // pruned sites from PRUNE_LD_GRAPH
+    path(depth_cutoff)   // depth cutoff from DEPTH_HIST
 
     output:
     path("pca_input.beagle.gz"), emit: beagle
     path("pca_input.mafs.gz"),   emit: mafs
 
     script:
-    def max_depth = params.pca_max_depth ? "-setMaxDepth ${params.pca_max_depth}" : ""
-    
+    def max_depth_val = "cat ${depth_cutoff} | awk '{print \$NF}'"
+
     """
     set -euo pipefail
 
@@ -40,7 +41,7 @@ process GENERATE_PCA_LIKELIHOODS {
       -SNP_pval ${params.pca_snp_pval} \\
       -minInd \$MIN_IND \\
       -minMapQ 20 -minQ 20 \\
-      ${max_depth} \\
+      -setmaxDepth ${max_depth_val} \\
       -nThreads ${task.cpus} \\
       -out pca_input
 

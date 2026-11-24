@@ -232,7 +232,7 @@ workflow {
     // Generate genotype likelihoods for all passing putative variants 
     GENERATE_GENO_LIKELIHOODS(
         ch_filt_bamlist, ch_all_passing_filt_bams, ch_all_passing_filt_bais,
-        FILTER_PARALOGS.out.sites
+        FILTER_PARALOGS.out.sites, DEPTH_HIST.out.cutoff
     )
 
     // Run ngsLD to calculate pairwise LD between all passing putative variants
